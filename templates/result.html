@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Predictor - Result</title>
+		<link rel="shortcut icon" href="{{ url_for('static', filename='diabetes-favicon.ico') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+		<script src="https://kit.fontawesome.com/5f3f547070.js" crossorigin="anonymous"></script>
+		<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+	</head>
+
+    <body>
+     <script>
+	function printDiv(divName) {
+     var printContents = document.getElementById(divName).innerHTML;
+     var originalContents = document.body.innerHTML;
+
+     document.body.innerHTML = printContents;
+
+     window.print();
+
+     document.body.innerHTML = originalContents;
+}
+	 </script>
+        <!-- Website Title -->
+		<div id="result">
+		<div class="container">
+            <h2 class='container-heading'><span class="heading_font">HEART DISEASE PREDICTOR</span></h2>
+            <div class='description'>
+				<br>
+				<p>A Machine Learning Web Application that predicits chances of having Heart Disease or Not</p>
+    			
+    		</div>
+    	</div>
+
+		<!-- Result -->
+		<div class="results" style="padding-top: 3px;">
+            <h2>Report</h2><br>
+		<center>
+			<table>
+				<tr>
+					<th>Information</th>
+					<th>Value</th>
+				</tr>
+				<tr>
+					<td>Name</td>
+					<td>{{name}}</td>
+				</tr>
+				<tr>
+					<td>Age</td>
+					<td>{{age}}</td>
+				</tr>
+				<tr>
+					<td>Sex</td>
+					<td>{{sex}}</td>
+				</tr>
+				<tr>
+					<td>Chest Pain Type</td>
+					<td>{{chestpain}}</td>
+				</tr>
+				<tr>
+					<td>Resting Blood Pressure</td>
+					<td>{{trestbps}}</td>
+				</tr>
+				<tr>
+					<td>Serum Cholesterol</td>
+					<td>{{chol}}</td>
+				</tr>
+				<tr>
+					<td>Fasting Blood Sugar</td>
+					<td>{{fbs}}</td>
+				</tr>
+				<tr>
+					<td>Resting ECG Results</td>
+					<td>{{restecg}}</td>
+				</tr>
+				<tr>
+					<td>Max Heart Rate</td>
+					<td>{{maxHrate}}</td>
+				</tr>
+				<tr>
+					<td>Exercise-induced Angina</td>
+					<td>{{angina}}</td>
+				</tr>
+				<tr>
+					<td>ST Depression</td>
+					<td>{{oldpeak}}</td>
+				</tr>
+				<tr>
+					<td>Slope of the Peak Exercise ST Segment</td>
+					<td>{{slope}}</td>
+				</tr>
+				<tr>
+					<td>Number of Major Vessels</td>
+					<td>{{vessels}}</td>
+				</tr>
+				<tr>
+					<td>Thalassemia</td>
+					<td>{{thalassemia}}</td>
+				</tr>				
+			</table>
+		</center>
+			<br><br><br><br>
+				<h2>Note</h2>
+			<center>
+				<table class="note">
+					<tr>
+						<td>Sex</td>
+						<td><ul>
+							<li>Male(1)</li>
+							<li>Female(0)</li>
+						</ul></td>
+					</tr>
+					<tr>
+						<td>Chest Pain Type</td>
+						<td><ul>
+							<li>Typical Angina(0)</li>
+							<li>Atypical Angina(1)</li>
+							<li>Non-Anginal Pain(2)</li>
+							<li>Asymtomatic</li>
+						</ul></td>
+					</tr>
+					<tr>
+						<td>Fasting Blood Sugar</td>
+						<td><ul>
+							<li>Greater than 120 mg/dl(1)</li>
+							<li>Less than 120 mg/dl(0)</li>
+						</ul></td>
+					</tr>
+					<tr>
+						<td>Resting ECG Results</td>
+						<td>
+							<ul>
+								<li>Normal(0)</li>
+								<li>Having ST-T Wave Abnormality(1)</li>
+								<li>Probable or Definite Left Ventricular Hypertrophy(2)</li>
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<td>Exercise-induced Angina</td>
+						<td>
+							<ul>
+								<li>Yes(1)</li>
+								<li>No(0)</li>
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<td>Slope of the Peak Exercise ST Segment</td>
+						<td>
+							<ul>
+								<li>Upsloping(0)</li>
+								<li>Flat(1)</li>
+								<li>Downsloping(2)</li>
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<td>Thalassemia</td>
+						<td>
+							<ul>
+								<li>Normal(0)</li>
+								<li>Fixed Defect(1)</li>
+								<li>Reversible Defect(2)</li>
+								<li>Extra Defect(3)</li>
+							</ul>
+						</td>
+					</tr>
+				</table>
+			</center>
+			<br>
+
+			{% if prediction==1 %}
+				<h1>Prediction: <span class='danger'>OOPS! You HAVE Chances of Heart Disease</span></h1>
+				<br><br><center><img src="..\static\thumbs-down.png" style="height:auto; width:100px;"></center><br><br><br><br>
+				<div class="pre">
+					<h2>As Per the Report,</h2>
+				<ol>
+				{% if chestpain==0 %}
+				
+				<li><h4>You have typicl angina, it may be due to emotional stress, heavy meals, heavy physical activity and so on; Some rest will be needed; In case of severe pain, it is better to consult doctor</h3></li>
+				{% elif chestpain==1 %}
+				<li><h4>You have atypicl angina,it looks like your chest pain is atypical, however further testing might be needed; Therefore, you should schedule an appointment within two days with your primary care physician who can coordinate these further tests</h3></li>
+				{% elif chestpain==2 %}
+				   <li><h4>You have non-anginal pain,A chest pain is very likely nonanginal if its duration is over 30 minutes or less than 5 seconds, it increases with inspiration, can be brought on with one movement of the trunk or arm, can be brought on by local fingers pressure, or bending forward, or it can be relieved immediately on lying down; In case of severe pain, it is better to consult doctor</h3></li>
+				{% elif chestpain==3 %}
+				<li><h4>
+					You have asymptomatic chest pain, A silent heart attack might not cause chest pain or shortness of breath, which are typically associated with a heart attack; it is better to consult doctor
+				</h4></li>
+				{% endif %}
+			    
+				{% if maxHrate>x %}
+				<li><h4>If you develop palpitations, an irregular heart rate, shortness of breath, or chest pain, you need to seek medical help right away; This could be a sign of animpending heart attack or other life-threatening heart problems</h4></li>
+				 {% endif %}
+                
+				
+				 {% if angina== 1 %}
+				 <li><h4>You have more exercise; Build up your activity level gradually and take regular breaks</h4></li>
+				{% endif %}
+               
+				
+				{% if slope== 1 %}
+				<li><h4>Slope of ST part is flat; It is very dangerous, it is better to consult a doctor</h4></li>
+				{% elif slope==2 %}
+				<li><h4>Slope of ST part is downsloping; It is very dangerous, it is better to consult a doctor</h4></li>
+				{% endif %}
+                
+				{% if vessels == 1 %}
+				<li><h4>You have clot in 1 major blood vessel; It is very dangerous, it is better to consult a doctor</h4></li>
+				{% elif vessels ==2 %}
+				<li><h4>You have clot in 2 major blood vessel; It is very dangerous, it is better to consult a doctor</h4></li>
+				{% elif vessels ==3 %}
+				<li><h4>You have clot in 3 major blood vessel; It is very dangerous, it is better to consult a doctor</h4></li>
+				{% endif %}
+                
+				
+				{% if thalassemia == 1 %}
+				<li><h4>You have fixed defect thalassemia,that is no bood flow in some parts of heart; It is very dangerous, it is better to consult a doctor</h4></li>
+				{% elif thalassemia ==2 %}
+				<li><h4>You have reversible defect thalassemia,that will be some blood flow but not of sufficient quantity; It is very dangerous, it is better to consult a doctor</h4></li>
+				{% elif thalassemia ==3 %}
+				<li><h4>You have extra defect; It is very dangerous, it is better to consult a doctor</h4></li>
+				{% endif %}
+				</ol>
+				</div>
+			{% elif prediction==0 %}
+				<h1>Prediction: <span class='safe'>Great! You DON'T have chances of Heart Disease</span></h1>
+			    <br><br><center><img src="..\static\thumbs-up.png" style="height:auto; width:100px;"></center><br><br><br><br>
+				<div class="pre"><h2>As Per the Report,</h2>
+				<ol><li><h4>To maintain the same level ,Get regular physical activity to help you maintain a healthy weight and lower your blood pressure and healthy cholesterol, and blood sugar levels</h4></li></ol>
+			{% endif %}
+		    </div>	
+		</div>
+		<br>
+	</div>
+		<center><input type="button" onclick="printDiv('result')" value="Print" class="print-btn"></center>
+
+		<!-- Footer -->
+       <div class='footer'>
+           <p class='footer-description'></p>
+		   
+       </div>
+
+	</body>
+</html>
